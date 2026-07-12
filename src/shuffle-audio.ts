@@ -44,7 +44,7 @@ export class ShuffleAudio {
     const snapFilter = context.createBiquadFilter()
     const snapGain = context.createGain()
     snapFilter.type = 'lowpass'
-    snapFilter.frequency.value = 1_350 + Math.random() * 300
+    snapFilter.frequency.value = 2_100 + Math.random() * 400
     snapFilter.Q.value = 0.9
     snapGain.gain.setValueAtTime(0.1, now)
     snapGain.gain.exponentialRampToValueAtTime(0.001, now + duration)
@@ -55,9 +55,9 @@ export class ShuffleAudio {
     const body = context.createOscillator()
     const bodyGain = context.createGain()
     body.type = 'triangle'
-    body.frequency.setValueAtTime(165 + Math.random() * 20, now)
-    body.frequency.exponentialRampToValueAtTime(82, now + 0.055)
-    bodyGain.gain.setValueAtTime(0.12, now)
+    body.frequency.setValueAtTime(310 + Math.random() * 30, now)
+    body.frequency.exponentialRampToValueAtTime(175, now + 0.055)
+    bodyGain.gain.setValueAtTime(0.075, now)
     bodyGain.gain.exponentialRampToValueAtTime(0.001, now + 0.055)
     body.connect(bodyGain).connect(context.destination)
     body.start(now)
