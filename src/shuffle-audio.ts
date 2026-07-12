@@ -15,7 +15,7 @@ export class ShuffleAudio {
     if (!this.context || this.timer !== null) return
 
     this.riffle()
-    this.timer = window.setInterval(() => this.riffle(), 180)
+    this.timer = window.setInterval(() => this.riffle(), 120)
   }
 
   stop(): void {
