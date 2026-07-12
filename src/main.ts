@@ -121,7 +121,7 @@ function startShuffle(): void {
   setInstruction('Touch to pick a card')
   showCard(pickRandomCard())
   shuffleAudio.start()
-  shuffleTimer = window.setInterval(() => showCard(pickRandomCard()), 82)
+  shuffleTimer = window.setInterval(() => showCard(pickRandomCard()), 60)
 }
 
 function selectCard(): void {
