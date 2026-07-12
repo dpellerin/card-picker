@@ -29,25 +29,38 @@ export class ShuffleAudio {
     const context = this.context
     if (!context) return
 
-    const duration = 0.085
+    const now = context.currentTime
+    const duration = 0.032
     const frameCount = Math.floor(context.sampleRate * duration)
     const buffer = context.createBuffer(1, frameCount, context.sampleRate)
     const channel = buffer.getChannelData(0)
 
     for (let index = 0; index < frameCount; index += 1) {
-      const decay = 1 - index / frameCount
+      const decay = Math.pow(1 - index / frameCount, 3)
       channel[index] = (Math.random() * 2 - 1) * decay
     }
 
-    const source = context.createBufferSource()
-    const filter = context.createBiquadFilter()
-    const gain = context.createGain()
-    filter.type = 'bandpass'
-    filter.frequency.value = 1_700 + Math.random() * 900
-    filter.Q.value = 0.75
-    gain.gain.value = 0.13
-    source.buffer = buffer
-    source.connect(filter).connect(gain).connect(context.destination)
-    source.start()
+    const snap = context.createBufferSource()
+    const snapFilter = context.createBiquadFilter()
+    const snapGain = context.createGain()
+    snapFilter.type = 'lowpass'
+    snapFilter.frequency.value = 1_350 + Math.random() * 300
+    snapFilter.Q.value = 0.9
+    snapGain.gain.setValueAtTime(0.1, now)
+    snapGain.gain.exponentialRampToValueAtTime(0.001, now + duration)
+    snap.buffer = buffer
+    snap.connect(snapFilter).connect(snapGain).connect(context.destination)
+    snap.start(now)
+
+    const body = context.createOscillator()
+    const bodyGain = context.createGain()
+    body.type = 'triangle'
+    body.frequency.setValueAtTime(165 + Math.random() * 20, now)
+    body.frequency.exponentialRampToValueAtTime(82, now + 0.055)
+    bodyGain.gain.setValueAtTime(0.12, now)
+    bodyGain.gain.exponentialRampToValueAtTime(0.001, now + 0.055)
+    body.connect(bodyGain).connect(context.destination)
+    body.start(now)
+    body.stop(now + 0.06)
   }
 }
