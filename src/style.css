@@ -121,7 +121,7 @@ body {
 }
 
 .is-shuffling .card-face {
-  animation: flip-card 120ms linear infinite;
+  animation: flip-card 132ms linear infinite;
 }
 
 .motion-error {
