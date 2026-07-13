@@ -3,6 +3,12 @@ import { pickRandomCard, type Card } from './cards.ts'
 import { ShakeDetector, type MotionSample } from './motion.ts'
 import { ShuffleAudio } from './shuffle-audio.ts'
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    void navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`)
+  })
+}
+
 type AppState = 'onboarding' | 'ready' | 'shuffling' | 'selected'
 type MotionPermission = 'unknown' | 'granted' | 'unavailable'
 
