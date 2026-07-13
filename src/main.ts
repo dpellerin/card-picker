@@ -15,10 +15,12 @@ if (!app) throw new Error('App root not found')
 
 app.innerHTML = `
   <button class="deck" type="button" aria-describedby="instruction">
-    <span class="card-back" aria-hidden="true">
-      <span class="card-back__frame"><span class="card-back__pattern"></span></span>
+    <span class="card">
+      <span class="card-back" style="background-image: url('${import.meta.env.BASE_URL}card-back.png')" aria-hidden="true">
+        <span class="card-back__border-fix" style="background-image: url('${import.meta.env.BASE_URL}card-back.png')"></span>
+      </span>
+      <img class="card-face" alt="" draggable="false" />
     </span>
-    <img class="card-face" alt="" draggable="false" />
     <span class="instruction" id="instruction">Tap to begin</span>
   </button>
   <div class="motion-error" role="status" aria-live="polite"></div>
@@ -121,7 +123,16 @@ function startShuffle(): void {
   setInstruction('Touch to pick a card')
   showCard(pickRandomCard())
   shuffleAudio.start()
-  shuffleTimer = window.setInterval(() => showCard(pickRandomCard()), 66)
+  let showBackNext = true
+  shuffleTimer = window.setInterval(() => {
+    if (showBackNext) {
+      renderBack()
+    } else {
+      showCard(pickRandomCard())
+    }
+
+    showBackNext = !showBackNext
+  }, 66)
 }
 
 function selectCard(): void {
