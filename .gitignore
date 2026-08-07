@@ -22,6 +22,7 @@ pnpm-debug.log*
 .DS_Store
 .idea/
 .vscode/*
+.playwright-mcp/
 !.vscode/extensions.json
 !.vscode/settings.json
 
