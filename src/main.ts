@@ -27,7 +27,7 @@ app.innerHTML = `
       </span>
       <img class="card-face" alt="" draggable="false" />
     </span>
-    <span class="instruction" id="instruction">Tap to begin</span>
+    <span class="instruction" id="instruction">Tap or shake to pick a card</span>
   </button>
   <div class="motion-error" role="status" aria-live="polite"></div>
 `
@@ -53,6 +53,7 @@ document.addEventListener('visibilitychange', () => {
 async function handleTouch(): Promise<void> {
   if (state === 'onboarding') {
     await begin()
+    startShuffle()
     return
   }
 
@@ -89,7 +90,6 @@ async function begin(): Promise<void> {
 
   state = 'ready'
   renderBack()
-  setInstruction(motionPermission === 'granted' ? 'Shake to shuffle' : 'Tap to shuffle')
 
   if (motionPermission === 'unavailable') {
     motionError.textContent = 'Motion is unavailable. Touch controls are on.'
@@ -126,7 +126,7 @@ function startShuffle(): void {
 
   state = 'shuffling'
   deckButton.classList.add('is-shuffling')
-  setInstruction('Touch to pick a card')
+  setInstruction('Tap to pick a card')
   showCard(pickRandomCard())
   shuffleAudio.start()
   let showBackNext = true
@@ -153,7 +153,7 @@ function selectCard(): void {
   deckButton.classList.remove('is-shuffling')
   state = 'selected'
   showCard(pickRandomCard())
-  setInstruction(motionPermission === 'granted' ? 'Shake to pick again' : 'Tap to shuffle')
+  setInstruction('Tap or shake to pick again')
 }
 
 function showCard(card: Card): void {
