@@ -3,6 +3,13 @@
 A phone-sized deck of cards. Shake to shuffle, then touch the screen to pick one
 card at random from a standard 52-card deck.
 
+I wrote this little app for poker runs. If you don't know what a poker run
+is, it's a motorcycle ride with stops along the way — at each stop you pick
+a card. At the end of the run you have a poker hand. Whoever has the
+highest hand wins the pot.
+
+Good luck!
+
 ## Development
 
 Requires Node.js 20.19 or newer.
