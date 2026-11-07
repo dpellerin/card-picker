@@ -12,15 +12,17 @@ Good luck!
 
 ## Development
 
-Requires Node.js 20.19 or newer.
+Requires Node.js 24 and pnpm 10.34.9 (pinned in `packageManager`).
 
 ```sh
 pnpm install
 pnpm dev
 ```
 
-Run the automated checks with `pnpm test` and create a production build with
-`pnpm build`.
+Run the automated checks with `pnpm lint`, `pnpm typecheck`, `pnpm test`,
+`pnpm test:toolchain` and `pnpm audit`. Create a production build with `pnpm build`.
+The PR validation workflow runs all of these, including the full development
+dependency audit and a synthetic localhost-only denied-file regression.
 
 Motion permission and device motion events require HTTPS on supported mobile
 browsers. The app provides a touch fallback on devices where motion is not

@@ -3,15 +3,23 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint --deny-warnings src",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:toolchain": "node --test tests/toolchain.test.mjs"
   },
   "devDependencies": {
+    "oxlint": "^1.92.0",
     "typescript": "^7.0.2",
-    "vite": "^8.1.4",
-    "vitest": "^4.1.9"
+    "vite": "^8.3.6",
+    "vitest": "~4.1.12"
   }
 }
